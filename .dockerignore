@@ -1,0 +1,11 @@
+.git
+.gcloudignore
+.gitignore
+.idea
+.vscode
+target
+*.jar
+*.jpg
+*.png
+*.md
+

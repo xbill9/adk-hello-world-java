@@ -1,4 +1,10 @@
-. $HOME/adk-hello-world-java/set_env.sh
+#!/usr/bin/env bash
 
-/usr/bin/env /nix/store/8yqdr7xk055fgqjzhcjdspnf24w70qwp-zulu-ca-jdk-17.0.8.1/bin/java @/tmp/cp_2v1mevgsmoq48vatbga38vlze.argfile agents.multitool.MultiToolAgent
+set -euo pipefail
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
+source "$SCRIPT_DIR/set_env.sh"
 
+mvn compile exec:java \
+  -Dexec.mainClass="agents.multitool.MultiToolAgent" \
+  -Dexec.classpathScope="compile"

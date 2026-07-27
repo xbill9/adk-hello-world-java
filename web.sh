@@ -1,13 +1,5 @@
-. $HOME/adk-hello-world-java/set_env.sh
+#!/usr/bin/env bash
 
-
-echo `pwd`
-echo running Dev UI
-echo http://127.0.0.1:8080
-
-mvn exec:java \
-    -Dexec.mainClass="com.google.adk.web.AdkWebServer" \
-    -Dexec.args="--adk.agents.source-dir=src/main/java" \
-    -Dexec.classpathScope="compile"
-
-
+set -euo pipefail
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+exec "$SCRIPT_DIR/devui.sh" "$@"

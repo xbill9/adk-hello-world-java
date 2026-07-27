@@ -1,5 +1,5 @@
-# Use an official Maven image with a JDK. Choose a version appropriate for your project.
-FROM maven:3.8-openjdk-17 AS builder
+# Maven and JDK image used by the Cloud Run source build.
+FROM maven:3.9-eclipse-temurin-25
 
 WORKDIR /app
 
@@ -7,16 +7,9 @@ COPY pom.xml .
 RUN mvn dependency:go-offline -B
 
 COPY src ./src
+RUN mvn compile -B
 
-# Expose the port your application will listen on.
-# Cloud Run will set the PORT environment variable, which your app should use.
 EXPOSE 8080
 
-# The command to run your application.
-# TODO(Developer): Update the "adk.agents.source-dir" to the directory that contains your agents.
-# You can have multiple agents in this directory and all of them will be available in the Dev UI.
-ENTRYPOINT ["mvn", "exec:java", \
-    "-Dexec.mainClass=com.google.adk.web.AdkWebServer", \
-    "-Dexec.classpathScope=compile", \
-    "-Dexec.args=--server.port=${PORT} --adk.agents.source-dir=src/main/java" \
-]
+# Shell expansion is required because Cloud Run supplies PORT at runtime.
+CMD ["sh", "-c", "exec mvn exec:java -Dexec.mainClass=com.google.adk.web.AdkWebServer -Dexec.classpathScope=compile -Dexec.args=\"--server.port=${PORT:-8080} --adk.agents.source-dir=.\""]
