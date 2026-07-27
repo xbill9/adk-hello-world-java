@@ -6,8 +6,6 @@ tags: java, ai, googlecloud, debian
 cover_image: https://raw.githubusercontent.com/xbill9/adk-hello-world-java/main/cover-image-debian.png
 ---
 
-# Build and Deploy Java AI Agents with Google ADK on Debian Trixie and Cloud Run
-
 Debian 13 “Trixie” provides a clean, stable base for Java agent development. On a
 workstation, virtual machine, or cloud instance, you can compile Java projects, run
 local web servers, use the Google Agent Development Kit (ADK) Dev UI, and deploy an
@@ -45,10 +43,10 @@ source "$HOME/.sdkman/bin/sdkman-init.sh"
 sdk list java
 ```
 
-Select an available Java 25 identifier from the list and install it:
+Select an available Java 25 identifier from the list and install it (for example, `25-open`):
 
 ```bash
-sdk install java <JAVA_25_IDENTIFIER>
+sdk install java 25-open
 java --version
 mvn --version
 ```
@@ -179,7 +177,7 @@ downloaded credential file.
 
 ## 5. Build, test, and lint
 
-Compile the project and run its eight JUnit 6 tests:
+Compile the project and run its eight JUnit Jupiter tests:
 
 ```bash
 make build
